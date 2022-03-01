@@ -57,3 +57,23 @@ func (handler Handler) UpdateCashFlows(c *gin.Context) {
 		}
 	}
 }
+
+func (handler Handler) GetCashFlow(c *gin.Context) {
+	var cashFlow *models.CashFlow
+	var err error
+	cashFlow, err = handler.service.GetCashFlow(c.Param("id"))
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+	} else {
+		c.IndentedJSON(http.StatusOK, cashFlow)
+	}
+}
+
+func (handler Handler) DeleteCashFlow(c *gin.Context) {
+	err := handler.service.DeleteCashFlow(c.Param("id"))
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+	} else {
+		c.Status(http.StatusOK)
+	}
+}

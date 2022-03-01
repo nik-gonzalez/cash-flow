@@ -38,3 +38,20 @@ func (service InMemoryService) UpdateCashFlow(cashFlow models.CashFlow) error {
 	cashFlows[cashFlow.ID] = cashFlow
 	return nil
 }
+
+func (service InMemoryService) GetCashFlow(id string) (*models.CashFlow, error) {
+	cashFlow, exists := cashFlows[id]
+	if !exists {
+		return nil, errors.New("CashFlow not found")
+	}
+	return &cashFlow, nil
+}
+
+func (service InMemoryService) DeleteCashFlow(id string) error {
+	_, exists := cashFlows[id]
+	if !exists {
+		return errors.New("CashFlow not found")
+	}
+	delete(cashFlows, id)
+	return nil
+}
