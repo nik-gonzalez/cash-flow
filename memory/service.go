@@ -3,14 +3,13 @@ package memory
 import (
 	"cash-flow-service/models"
 	"errors"
+	"time"
 )
 
-// albums slice to seed record album data.
-// albums slice to seed record album data.
 var cashFlows = map[string]models.CashFlow{
-	"1": {ID: "1", Title: "Side Hustle Income", Description: "John Coltrane", Amount: 56.99},
-	"2": {ID: "2", Title: "Food", Description: "Gerry Mulligan", Amount: -17.99},
-	"3": {ID: "3", Title: "Salary", Description: "Sarah Vaughan", Amount: 39.99},
+	"1": {ID: "1", Name: "Salary", Remarks: "Monthly Salary from Main Gig", Amount: 39.99, Date: models.JTime(time.Now())},
+	"2": {ID: "2", Name: "Side Hustle Income", Remarks: "Project B", Amount: 56.99, Date: models.JTime(time.Now())},
+	"3": {ID: "3", Name: "Food", Remarks: "Grocery purchase", Amount: -17.99, Date: models.JTime(time.Now())},
 }
 
 type InMemoryService struct{}
