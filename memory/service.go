@@ -7,9 +7,9 @@ import (
 )
 
 var cashFlows = map[string]models.CashFlow{
-	"1": {ID: "1", Name: "Salary", Remarks: "Monthly Salary from Main Gig", Amount: 39.99, Date: models.JTime(time.Now())},
-	"2": {ID: "2", Name: "Side Hustle Income", Remarks: "Project B", Amount: 56.99, Date: models.JTime(time.Now())},
-	"3": {ID: "3", Name: "Food", Remarks: "Grocery purchase", Amount: -17.99, Date: models.JTime(time.Now())},
+	"1": {ID: "1", Name: "Salary", Remarks: "Monthly Salary from Main Gig", Amount: 39.99, Date: models.JsonDateTime(time.Now())},
+	"2": {ID: "2", Name: "Side Hustle Income", Remarks: "Project B", Amount: 56.99, Date: models.JsonDateTime(time.Now())},
+	"3": {ID: "3", Name: "Food", Remarks: "Grocery purchase", Amount: -17.99, Date: models.JsonDateTime(time.Now())},
 }
 
 type InMemoryService struct{}
