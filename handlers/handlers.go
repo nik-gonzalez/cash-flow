@@ -3,8 +3,8 @@ package handlers
 import (
 	"cash-flow-service/api"
 	"cash-flow-service/models"
-	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 	"net/http"
 )
 
@@ -22,58 +22,66 @@ func NewWithService(service api.Service) Handler {
 }
 func (handler Handler) GetCashFlows(c *gin.Context) {
 	cashFlows, err := handler.service.GetCashFlows()
+	logrus.Println("handling GetCashFlows")
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
-	} else {
-		fmt.Println("handling GetCashFlows", cashFlows)
-		c.IndentedJSON(http.StatusOK, cashFlows)
+		return
 	}
+	c.IndentedJSON(http.StatusOK, cashFlows)
 }
 
 func (handler Handler) AddCashFlows(c *gin.Context) {
 	var cashFlow models.CashFlow
 	if err := c.BindJSON(&cashFlow); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
-	} else {
-		fmt.Println("handling AddCashFlows", cashFlow)
-		err := handler.service.AddCashFlow(cashFlow)
-		c.Status(http.StatusCreated)
-		if err != nil {
-			c.AbortWithStatusJSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
-		}
+		return
 	}
+	logrus.Println("handling AddCashFlows", cashFlow)
+	err := handler.service.AddCashFlow(cashFlow)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+		return
+	}
+	c.Status(http.StatusCreated)
 }
 
 func (handler Handler) UpdateCashFlows(c *gin.Context) {
 	var cashFlow models.CashFlow
 	if err := c.BindJSON(&cashFlow); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
-	} else {
-		fmt.Println("handling UpdateCashFlows", cashFlow)
-		err := handler.service.UpdateCashFlow(cashFlow)
-		c.Status(http.StatusOK)
-		if err != nil {
-			c.AbortWithStatusJSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
-		}
+		return
 	}
+
+	logrus.Println("handling UpdateCashFlows", cashFlow)
+	err := handler.service.UpdateCashFlow(cashFlow)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+		return
+	}
+
+	c.Status(http.StatusOK)
 }
 
 func (handler Handler) GetCashFlow(c *gin.Context) {
 	var cashFlow *models.CashFlow
 	var err error
-	cashFlow, err = handler.service.GetCashFlow(c.Param("id"))
+	id := c.Param("id")
+	logrus.Println("handling GetCashFlow", id)
+	cashFlow, err = handler.service.GetCashFlow(id)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
-	} else {
-		c.IndentedJSON(http.StatusOK, cashFlow)
+		return
 	}
+	c.IndentedJSON(http.StatusOK, cashFlow)
 }
 
 func (handler Handler) DeleteCashFlow(c *gin.Context) {
-	err := handler.service.DeleteCashFlow(c.Param("id"))
+	id := c.Param("id")
+	logrus.Println("handling DeleteCashFlow", id)
+	err := handler.service.DeleteCashFlow(id)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
-	} else {
-		c.Status(http.StatusOK)
+		return
 	}
+	c.Status(http.StatusOK)
 }

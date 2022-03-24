@@ -13,7 +13,9 @@ type CashFlow struct {
 	Date    JsonDateTime `json:"date"`
 }
 
-type JsonDateTime time.Time
+type JsonDateTime struct {
+	time.Time
+}
 
 func (mt *JsonDateTime) UnmarshalJSON(bs []byte) error {
 	var timestamp string
@@ -21,15 +23,15 @@ func (mt *JsonDateTime) UnmarshalJSON(bs []byte) error {
 	if err != nil {
 		return err
 	}
-	parse, err := time.Parse(time.RFC3339, timestamp)
+	parsed, err := time.Parse(time.RFC3339, timestamp)
 	if err != nil {
 		return err
 	}
-	*mt = JsonDateTime(parse)
+	*mt = JsonDateTime{parsed}
 	return nil
 }
 
 func (mt JsonDateTime) MarshalJSON() ([]byte, error) {
-	timestamp := time.Time(mt).Format(time.RFC3339)
+	timestamp := mt.Time.Format(time.RFC3339)
 	return json.Marshal(timestamp)
 }
