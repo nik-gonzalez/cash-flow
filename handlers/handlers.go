@@ -8,18 +8,14 @@ import (
 	"net/http"
 )
 
-type IHandler interface {
-	GetCashFlows(ctx *gin.Context)
-	AddCashFlow(ctx *gin.Context)
-}
-
 type Handler struct {
-	service api.Service
+	service api.IService
 }
 
-func NewWithService(service api.Service) Handler {
-	return Handler{service: service}
+func NewHandler(service api.IService) *Handler {
+	return &Handler{service}
 }
+
 func (handler Handler) GetCashFlows(c *gin.Context) {
 	cashFlows, err := handler.service.GetCashFlows()
 	logrus.Println("handling GetCashFlows")
@@ -30,13 +26,13 @@ func (handler Handler) GetCashFlows(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, cashFlows)
 }
 
-func (handler Handler) AddCashFlows(c *gin.Context) {
+func (handler Handler) AddCashFlow(c *gin.Context) {
 	var cashFlow models.CashFlow
 	if err := c.BindJSON(&cashFlow); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
 		return
 	}
-	logrus.Println("handling AddCashFlows", cashFlow)
+	logrus.Println("handling AddCashFlow", cashFlow)
 	err := handler.service.AddCashFlow(cashFlow)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
