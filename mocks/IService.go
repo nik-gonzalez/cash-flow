@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	models "cash-flow-service/models"
+	models "cash-flow-service/dto"
 
 	mock "github.com/stretchr/testify/mock"
 )

@@ -1,15 +1,19 @@
 package api
 
 import (
-	"cash-flow-service/models"
+	"cash-flow-service/dto"
 	"github.com/gin-gonic/gin"
 )
 
+type Repo interface {
+	Save()
+}
+
 type IService interface {
-	GetCashFlows() ([]models.CashFlow, error)
-	AddCashFlow(cashFlow models.CashFlow) error
-	UpdateCashFlow(cashFlow models.CashFlow) error
-	GetCashFlow(id string) (*models.CashFlow, error)
+	GetCashFlows() ([]dto.CashFlow, error)
+	AddCashFlow(cashFlow dto.CashFlow) error
+	UpdateCashFlow(cashFlow dto.CashFlow) error
+	GetCashFlow(id string) (*dto.CashFlow, error)
 	DeleteCashFlow(id string) error
 }
 

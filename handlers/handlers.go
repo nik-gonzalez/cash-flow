@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"cash-flow-service/api"
-	"cash-flow-service/models"
+	"cash-flow-service/dto"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"net/http"
@@ -27,7 +27,7 @@ func (handler Handler) GetCashFlows(c *gin.Context) {
 }
 
 func (handler Handler) AddCashFlow(c *gin.Context) {
-	var cashFlow models.CashFlow
+	var cashFlow dto.CashFlow
 	if err := c.BindJSON(&cashFlow); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
 		return
@@ -42,7 +42,7 @@ func (handler Handler) AddCashFlow(c *gin.Context) {
 }
 
 func (handler Handler) UpdateCashFlow(c *gin.Context) {
-	var cashFlow models.CashFlow
+	var cashFlow dto.CashFlow
 	if err := c.BindJSON(&cashFlow); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
 		return
@@ -59,7 +59,7 @@ func (handler Handler) UpdateCashFlow(c *gin.Context) {
 }
 
 func (handler Handler) GetCashFlow(c *gin.Context) {
-	var cashFlow *models.CashFlow
+	var cashFlow *dto.CashFlow
 	var err error
 	id := c.Param("id")
 	logrus.Println("handling GetCashFlow", id)

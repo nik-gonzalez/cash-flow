@@ -3,8 +3,8 @@ package handlers
 import (
 	"bytes"
 	"cash-flow-service/api"
+	"cash-flow-service/dto"
 	"cash-flow-service/mocks"
-	"cash-flow-service/models"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/assert/v2"
@@ -34,7 +34,7 @@ func TestHandler_AddCashFlow(t *testing.T) {
 	contextWithJson.Request = &http.Request{
 		Header: make(http.Header),
 	}
-	mockJson(contextWithJson, models.CashFlow{ID: "1"}, "POST")
+	mockJson(contextWithJson, dto.CashFlow{ID: "1"}, "POST")
 	tests := []struct {
 		name       string
 		fields     fields
@@ -92,7 +92,7 @@ func TestHandler_GetCashFlow(t *testing.T) {
 	}
 	context, _ := gin.CreateTestContext(httptest.NewRecorder())
 	mService := mocks.IService{}
-	mService.On("GetCashFlow", mock.Anything).Return(&models.CashFlow{}, nil)
+	mService.On("GetCashFlow", mock.Anything).Return(&dto.CashFlow{}, nil)
 	tests := []struct {
 		name   string
 		fields fields
@@ -120,7 +120,7 @@ func TestHandler_GetCashFlows(t *testing.T) {
 	}
 	context, _ := gin.CreateTestContext(httptest.NewRecorder())
 	mService := mocks.IService{}
-	mService.On("GetCashFlows", mock.Anything).Return([]models.CashFlow{{ID: "1"}, {ID: "2"}}, nil)
+	mService.On("GetCashFlows", mock.Anything).Return([]dto.CashFlow{{ID: "1"}, {ID: "2"}}, nil)
 	tests := []struct {
 		name   string
 		fields fields
@@ -157,7 +157,7 @@ func TestHandler_UpdateCashFlows(t *testing.T) {
 	contextWithJson.Request = &http.Request{
 		Header: make(http.Header),
 	}
-	mockJson(contextWithJson, models.CashFlow{ID: "1"}, "PUT")
+	mockJson(contextWithJson, dto.CashFlow{ID: "1"}, "PUT")
 
 	tests := []struct {
 		name       string
