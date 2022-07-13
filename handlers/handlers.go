@@ -41,14 +41,14 @@ func (handler Handler) AddCashFlow(c *gin.Context) {
 	c.Status(http.StatusCreated)
 }
 
-func (handler Handler) UpdateCashFlows(c *gin.Context) {
+func (handler Handler) UpdateCashFlow(c *gin.Context) {
 	var cashFlow models.CashFlow
 	if err := c.BindJSON(&cashFlow); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
 		return
 	}
 
-	logrus.Println("handling UpdateCashFlows", cashFlow)
+	logrus.Println("handling UpdateCashFlow", cashFlow)
 	err := handler.service.UpdateCashFlow(cashFlow)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, map[string]string{"error": err.Error()})

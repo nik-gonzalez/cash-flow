@@ -33,6 +33,6 @@ func (_m *IHandler) GetCashFlows(ctx *gin.Context) {
 }
 
 // UpdateCashFlows provides a mock function with given fields: c
-func (_m *IHandler) UpdateCashFlows(c *gin.Context) {
+func (_m *IHandler) UpdateCashFlow(c *gin.Context) {
 	_m.Called(c)
 }

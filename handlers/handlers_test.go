@@ -174,7 +174,7 @@ func TestHandler_UpdateCashFlows(t *testing.T) {
 			handler := Handler{
 				service: tt.fields.service,
 			}
-			handler.UpdateCashFlows(tt.args.c)
+			handler.UpdateCashFlow(tt.args.c)
 			assert.Equal(t, tt.args.w.Result().StatusCode, tt.wantStatus)
 		})
 	}

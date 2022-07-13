@@ -16,7 +16,7 @@ type IService interface {
 type IHandler interface {
 	GetCashFlows(ctx *gin.Context)
 	AddCashFlow(c *gin.Context)
-	UpdateCashFlows(c *gin.Context)
+	UpdateCashFlow(c *gin.Context)
 	GetCashFlow(c *gin.Context)
 	DeleteCashFlow(c *gin.Context)
 }
