@@ -2,11 +2,15 @@ package api
 
 import (
 	"cash-flow-service/dto"
+	"cash-flow-service/model"
 	"github.com/gin-gonic/gin"
 )
 
 type Repo interface {
-	Save()
+	Create(cashFlow model.CashFlowEntity) (model.CashFlowEntity, error)
+	Update(cashFlow model.CashFlowEntity) (model.CashFlowEntity, error)
+	GetById(id int) (model.CashFlowEntity, error)
+	GetAllBySearchCriteria(command CashFlowSearchCriteria)
 }
 
 type IService interface {
