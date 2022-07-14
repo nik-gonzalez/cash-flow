@@ -1,16 +1,16 @@
 package memory
 
 import (
-	"cash-flow-service/customType"
+	"cash-flow-service/common"
 	"cash-flow-service/dto"
 	"errors"
 	"time"
 )
 
 var cashFlows = map[string]dto.CashFlow{
-	"1": {ID: "1", Name: "Salary", Remarks: "Monthly Salary from Main Gig", Amount: 39.99, Date: customType.JsonDateTime{Time: time.Now()}},
-	"2": {ID: "2", Name: "Side Hustle Income", Remarks: "Project B", Amount: 56.99, Date: customType.JsonDateTime{Time: time.Now()}},
-	"3": {ID: "3", Name: "Food", Remarks: "Grocery purchase", Amount: -17.99, Date: customType.JsonDateTime{Time: time.Now()}},
+	"1": {ID: "1", Name: "Salary", Remarks: "Monthly Salary from Main Gig", Amount: 39.99, Date: common.JsonDateTime{Time: time.Now()}},
+	"2": {ID: "2", Name: "Side Hustle Income", Remarks: "Project B", Amount: 56.99, Date: common.JsonDateTime{Time: time.Now()}},
+	"3": {ID: "3", Name: "Food", Remarks: "Grocery purchase", Amount: -17.99, Date: common.JsonDateTime{Time: time.Now()}},
 }
 
 type InMemoryService struct{}

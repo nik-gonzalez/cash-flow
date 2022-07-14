@@ -1,4 +1,4 @@
-package customType
+package common
 
 import (
 	"encoding/json"
